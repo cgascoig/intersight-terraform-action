@@ -25,4 +25,4 @@ jobs:
       run: terraform init
 
     - name: Terraform apply
-      run: terraform apply -var "intersight_key_id=${secrets.INTERSIGHT_API_KEY_ID}" -var "intersight_key_file=${INTERSIGHT_API_KEY}"
+      run: terraform apply -var "intersight_key_id=${{ secrets.INTERSIGHT_API_KEY_ID }}" -var "intersight_key_file=${INTERSIGHT_API_KEY}"

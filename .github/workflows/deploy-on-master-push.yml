@@ -1,0 +1,28 @@
+name: Deploy to production on push to master
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_BACKEND_CREDENTIALS: /tmp/gcp-sa-key.json
+      INTERSIGHT_API_KEY: /tmp/intersight-api-key.pem
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - run: echo -n "${{ secrets.GCP_SA_KEY }}" | base64 --decode > $GOOGLE_BACKEND_CREDENTIALS
+    - run: echo -n "${{ secrets.INTERSIGHT_API_KEY }}" | base64 --decode > $INTERSIGHT_API_KEY
+    - run: echo -e 'terraform {\n backend "gcs"  {\n   config {\n    bucket = "terraform-demo-backend"\n    prefix = "intersight-terraform-action"}\n  }\n }' > backend.tf
+
+
+    - uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform init
+      run: terraform init
+
+    - name: Terraform apply
+      run: terraform apply -var 'intersight_key_id=${secrets.INTERSIGHT_API_KEY_ID}'

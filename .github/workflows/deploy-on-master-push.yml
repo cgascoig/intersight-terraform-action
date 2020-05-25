@@ -16,7 +16,7 @@ jobs:
 
     - run: echo -n "${{ secrets.GCP_SA_KEY }}" | base64 --decode > $GOOGLE_BACKEND_CREDENTIALS
     - run: echo -n "${{ secrets.INTERSIGHT_API_KEY }}" | base64 --decode > $INTERSIGHT_API_KEY
-    - run: echo -e 'terraform {\n backend "gcs"  {\n   config {\n    bucket = "terraform-demo-backend"\n    prefix = "intersight-terraform-action"\n   }\n  }\n }' > backend.tf
+    - run: echo -e 'terraform {\n backend "gcs"  {\n   bucket = "terraform-demo-backend"\n   prefix = "intersight-terraform-action"\n  }\n }' > backend.tf
 
 
     - uses: hashicorp/setup-terraform@v1

@@ -7,7 +7,7 @@ resource "intersight_ntp_policy" "ntp1" {
     enabled = true
     ntp_servers = [
     "10.10.10.10",
-    # "10.10.10.11"
+    "10.10.10.11"
     ]
     organization {
         moid = data.intersight_organization_organization.default.moid

@@ -1,10 +1,10 @@
-# resource "random_id" "vm_name" {
-#   byte_length = 4
-#   prefix = "tf-demo-vm-"
-#   keepers = {
-#     timestamp = timestamp()
-#   }
-# }
+resource "random_id" "vm_name" {
+  byte_length = 4
+  prefix = "tf-demo-vm-"
+  keepers = {
+    timestamp = timestamp()
+  }
+}
   
 resource "intersight_workflow_workflow_info" "start-vm-1" {
   name = "tf-start-vm-1"
@@ -18,7 +18,7 @@ resource "intersight_workflow_workflow_info" "start-vm-1" {
   input = {
 
     Template = "/mel-dc-ng-datacenter/vm/cgascoig/OpenShift/cg-rhel7-template"
-    Name = "tf-demo-vm-1"
+    Name = random_id.vm_name.hex
 
   }
 

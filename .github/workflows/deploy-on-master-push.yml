@@ -22,6 +22,7 @@ jobs:
     - uses: hashicorp/setup-terraform@v1
       with:
         terraform_wrapper: false
+        terraform_version: v0.12.26
 
     - name: Terraform init
       run: terraform init -get-plugins=false -plugin-dir=./terraform.d/plugins/linux_amd64/

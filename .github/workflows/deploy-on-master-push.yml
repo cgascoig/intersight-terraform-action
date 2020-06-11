@@ -22,7 +22,7 @@ jobs:
     - uses: hashicorp/setup-terraform@v1
 
     - name: Terraform init
-      run: terraform init
+      run: terraform init -plugin-dir ./terraform.d/plugins/linux_amd64
 
     - name: Terraform apply
       run: terraform apply -auto-approve -var "intersight_key_id=${{ secrets.INTERSIGHT_API_KEY_ID }}" -var "intersight_key_file=${INTERSIGHT_API_KEY}"
